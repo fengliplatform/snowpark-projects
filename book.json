@@ -1,0 +1,27 @@
+[{
+  "book_title":"Food",
+  "year_published":2001,
+  "authors": [
+ {
+     "first_name":"Fiona",
+     "middle_name":null,
+     "last_name":"Macdonald"
+   },
+  {
+     "first_name":"Gian",
+     "middle_name":"Paulo",
+     "last_name":"Faleschini"
+   }
+ ]
+ },
+{
+  "book_title":"Food",
+  "year_published":2006,
+  "authors": 
+ [{
+     "first_name":"Laura",
+     "middle_name":"K",
+     "last_name":"Egendorf"
+   }
+ ]
+ }]
