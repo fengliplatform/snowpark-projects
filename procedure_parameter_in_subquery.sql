@@ -35,3 +35,47 @@ end;
 
 $$;
 call insert_file('product_coordination_suggestions.txt');
+
+
+----
+create or replace table mytbl (color varchar);
+
+ 
+
+select * from mytbl;
+
+truncate table mytbl;
+
+ 
+
+create or replace procedure insert_file(stage_name varchar, file_name varchar)
+
+returns varchar
+
+language sql
+
+as
+
+$$
+
+begin
+
+ 
+
+execute immediate 'copy into mytbl from
+
+  (select $1
+
+from @'||:stage_name||'/' || :file_name || '
+
+(file_format => zmd_file_format_1))';
+
+ 
+
+end;
+
+ 
+
+$$;
+
+call insert_file('uni_klaus_zmd','product_coordination_suggestions.txt');
