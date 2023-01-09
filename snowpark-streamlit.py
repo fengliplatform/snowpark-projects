@@ -23,8 +23,6 @@ def create_session_object():
    print(session.sql('select current_warehouse(), current_database(), current_schema()').collect())
    return session
 
-session = create_session_object()
-
 st.set_page_config(
      page_title="Environment Data Atlas",
      page_icon="🧊",
