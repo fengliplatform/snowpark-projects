@@ -1,3 +1,4 @@
+## https://quickstarts.snowflake.com/guide/getting_started_with_snowpark_for_python_streamlit/index.html?index=..%2F..index#0
 ## Create conda env for snowpark python app
 # conda create --name snowpark -c https://repo.anaconda.com/pkgs/snowflake python=3.8
 # conda activate snowpark
