@@ -29,3 +29,11 @@ select length(translate('TheMisSioNs','ABCDEFGHIJKLMNOPQRSTUVWXYZ',''''));
 select length('TheMisSioNs') - length(translate('TheMisSioNs','ABCDEFGHIJKLMNOPQRSTUVWXYZ','''')) as uppercase_letters
       ,length('TheMisSioNs') - length(translate('TheMisSioNs','abcdefghijklmnopqrstuvwxyz','''')) as lowercase_letters
 ;
+
+----
+Create temporary table A ( x varchar, Y varchar);
+
+Insert into A values ('Hi', 'Hi'),('Hi', 'Hi');
+
+With cte as (select * from A)
+    Select * from cte;
