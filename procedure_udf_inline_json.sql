@@ -1,3 +1,5 @@
+-- https://docs.snowflake.com/en/developer-guide/udf/python/udf-python-creating.html
+
 -- 1 procedure
 create or replace procedure compare_json (json1 text, json2 text)
 returns text
