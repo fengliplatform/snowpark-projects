@@ -24,3 +24,7 @@ buffer.seek(0)
   
 # Convert the reader object to a dataframe, using the headers as the column names
 df = pd.read_csv(buffer, delimiter=delimiter, quotechar=quotechar)
+
+
+## there is another relavent Medium post
+## https://medium.com/snowflake/loading-csv-as-semi-structured-files-in-snowflake-d7d76dfc37bf
