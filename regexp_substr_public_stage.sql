@@ -98,4 +98,27 @@ LIMIT
   250
 
 
+--https://docs.snowflake.com/en/sql-reference/functions/regexp_substr.html
+create table mytable (words text);
+insert into mytable values ('word1: words1 words2 words3 word2:');
+select words, regexp_substr(words,'word1:(.*)word 2:', 1, 1, 'e', 1) from mytable;
 
+select words, regexp_substr(words,'word2:(.*)word 2:', 1, 1, 'e', 1) from mytable; 
+
+create table mytable2 (words text);
+insert into mytable2 values ('word1: abc word2:');
+insert into mytable2 values ('word1: words1 words2 words3 word2:');
+
+select words, regexp_substr(words,'word1: (.*) word2:', 1, 1, 'e', 1) as regexp_substr_result
+    case
+        when regexp_substr(words,'word1: (.*) word2:', 1, 1, 'e', 1) = 'None' then null
+        else regexp_substr(words,'word1: (.*) word2:', 1, 1, 'e', 1)
+    end as results
+    from mytable2;
+    
+select words, regexp_substr(words,'word1: (.*) word2:', 1, 1, 'e', 1) as regexp_substr_result,
+    case
+        when regexp_substr_result = 'None' then null
+        else regexp_substr_result
+    end as final_result
+    from mytable2;
