@@ -64,6 +64,8 @@ create table mytable (words text);
 insert into mytable values ('word1: words1 words2 words3 word2:');
 select words, regexp_substr(words,'word1:(.*)word 2:', 1, 1, 'e', 1) from mytable; 
 
+select words, regexp_substr(words,'word1: (.*) word2:', 1, 1, 'e', 1) as regexp_substr_result,
+       NULLIF(replace(regexp_substr_result, '\n', ''), 'None') as final_result
 
 -- copy history
 SELECT
