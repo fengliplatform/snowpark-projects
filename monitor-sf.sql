@@ -1,3 +1,28 @@
+--
+select login_name, last_success_login from "SNOWFLAKE"."ACCOUNT_USAGE"."USERS"
+    where datediff(day, last_success_login, current_timestamp()) > 6;
+
+show grants to role sysadmin;
+
+select * from snowflake.account_usage.data_transfer_history;
+select * from snowflake.account_usage.grants_to_roles;
+select * from snowflake.account_usage.grants_to_users;
+
+select user_name, event_timestamp from "SNOWFLAKE"."ACCOUNT_USAGE"."LOGIN_HISTORY" 
+WHERE REPORTED_CLIENT_TYPE = 'SNOWFLAKE_UI' 
+and datediff(hour, event_timestamp, current_timestamp()) < 24;
+
+select login_name, created_on from "SNOWFLAKE"."ACCOUNT_USAGE"."USERS"
+    where not disabled and HAS_PASSWORD;
+select * from "SNOWFLAKE"."ACCOUNT_USAGE"."USERS";
+
+
+select query_id, user_name, start_time, error_code from "SNOWFLAKE"."ACCOUNT_USAGE"."QUERY_HISTORY" 
+    where  ERROR_CODE is not null 
+    and datediff(hour, start_time, current_timestamp()) < 1;
+
+----
+
 SELECT f.value:objectName, USER_NAME, MAX (QUERY_START_TIME) as LAST_ACCESSED_TIME
 FROM SNOWFLAKE.ACCOUNT_USAGE.ACCESS_HISTORY, TABLE (FLATTEN (BASE_OBJECTS_ACCESSED)) f
 where f.value:objectDomain = 'Table'
