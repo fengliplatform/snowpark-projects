@@ -1,20 +1,5 @@
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+-- provider
 use role accountadmin;
 CREATE MANAGED ACCOUNT reader_acct1
     ADMIN_NAME = admin_user , ADMIN_PASSWORD = 'Admin12345' ,
@@ -142,12 +127,6 @@ select current_account();
 -----------------
 
 
-
-
-
-
-
-
 -- create policy and check if sysadmin can see it.
 
 
@@ -163,6 +142,37 @@ grant usage on schema fengdb.public to role dbadmin;
 grant select on table fengdb.public.policy_test_tbl to role dbadmin;
 grant usage on warehouse compute_wh to role dbadmin;
 
+------------------
+
+-- consumer
+create or replace warehouse reader_wh WITH WAREHOUSE_SIZE='XSMALL';
+
+use role accountadmin;
+show shares;
+
+--use role sysadmin;
+create database fengdb_consumer from share DILUXZQ.KIB05025.POLICY_TEST_TBL_SHARE;
+select * from fengdb_consumer.public.policy_test_tbl;
+
+use role accountadmin;
+grant imported privileges on database fengdb_consumer to role sysadmin;
+use role sysadmin;
+select * from fengdb_consumer.public.policy_test_tbl;
+
+
+use role useradmin;
+create or replace role dbadmin;
+grant role dbadmin to role sysadmin;
+use role accountadmin;
+GRANT IMPORTED PRIVILEGES ON DATABASE fengdb_consumer TO ROLE dbadmin;
+
+use role dbadmin;
+select * from fengdb_consumer.public.policy_test_tbl;
+
+
+
+use role sysadmin;
+grant usage on warehouse reader_wh to role dbadmin;
 
 
 
