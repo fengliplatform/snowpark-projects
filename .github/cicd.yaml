@@ -1,0 +1,29 @@
+name: CI/CD Pipeline
+
+on:
+  workflow_dispatch:
+#  push:
+#    branches:
+#      - main
+
+
+jobs:
+  deploy_from_main_to_snowflake:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Install SnowSQL
+      run: |
+        curl -O https://sfc-repo.snowflakecomputing.com/snowsql/bootstrap/1.3/linux_x86_64/snowsql-1.3.2-linux_x86_64.bash
+        SNOWSQL_DEST=~/bin SNOWSQL_LOGIN_SHELL=~/.profile bash  snowsql-1.3.2-linux_x86_64.bash
+
+    - name: prepare user private Key
+      run: |
+        printf '%s\n' {{ secret.SF_USER_PRIVATE_KEY}" > ./private_key.pem
+        
+    - name: Run SnowSQL
+      run: |
+        ~/bin/snowsql -a {{ secret.SF_ACCOUNT }} -u {{ secret.SF_USER }} --private-key-path ./private_key.pem -f task.sql
