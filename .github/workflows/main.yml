@@ -10,8 +10,6 @@ on:
 jobs:
   deploy_from_main_to_snowflake:
     runs-on: ubuntu-latest
-    env:
-        SNOWSQL_PRIVATE_KEY : ${{ secrets.SF_USER_PRIVATE_KEY }}
 
     steps:
     - name: Checkout code
