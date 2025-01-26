@@ -24,7 +24,7 @@ jobs:
 
     - name: prepare user private Key
       run: |
-        printf '%s\n' $SNOWSQL_PRIVATE_KEY > ./private_key.pem
+        echo $SNOWSQL_PRIVATE_KEY > ./private_key.pem
         
     - name: Run SnowSQL
       run: |
