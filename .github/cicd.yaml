@@ -22,7 +22,7 @@ jobs:
 
     - name: prepare user private Key
       run: |
-        printf '%s\n' {{ secret.SF_USER_PRIVATE_KEY}" > ./private_key.pem
+        printf '%s\n' {{ secret.SF_USER_PRIVATE_KEY}} > ./private_key.pem
         
     - name: Run SnowSQL
       run: |
